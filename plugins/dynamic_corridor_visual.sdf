@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+	<model name="dynamic_corridor_visual">
+   		<pose>0 0 0 0 0 0</pose>
+   		<static>true</static>
+		<link name="corridor_1_link_visual">
+     		<visual name="corridor_1_visual">
+     			<plugin name="corridr_raiser_visual" filename="libcorridor_raiser_visual.so" />
+     			<geometry>
+     				<empty />
+     			</geometry>
+     		</visual><collision name="corridor_1_collision_1_base">
+     			<geometry>
+     				<box><size>0 0 0</size></box>
+     			</geometry>
+     		</collision>
+     	</link>
+	</model>
+</sdf>

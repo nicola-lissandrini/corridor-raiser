@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<launch>
+	<!-- Visual plugin -->
+	<param name="dynamic_corridor_visual_description" textfile="$(find corridor_raiser)/plugins/dynamic_corridor_visual.sdf" />
+
+	<node name="spawn_dynamic_corridor_visual" pkg="gazebo_ros" type="spawn_model"
+		args="-param dynamic_corridor_visual_description
+			  -sdf
+			  -model dynamic_corridor_visual"
+		respawn="false" output="screen" />
+
+	<!-- Physics plugin -->
+	<param name="dynamic_corridor_physics_description" textfile="$(find corridor_raiser)/plugins/dynamic_corridor_physics.sdf" />
+
+	<node name="spawn_dynamic_corridor_physics" pkg="gazebo_ros" type="spawn_model"
+		args="-param dynamic_corridor_physics_description
+			  -sdf
+			  -model dynamic_corridor_physics"
+		respawn="false" output="screen" />
+
+	<!-- Ros node -->
+	<rosparam command="load" file="$(find corridor_raiser)/config/corridor_raiser.yaml" />
+	<node type="corridor_raiser_node" name="corridor_raiser" pkg="corridor_raiser"  respawn="true" />
+</launch>

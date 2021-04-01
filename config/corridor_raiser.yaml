@@ -1,0 +1,14 @@
+corridor_raiser:
+  rate: 15
+  average_corridor_width: 0.26
+  wall_thickness: 0.03
+  keypoints_count: 5
+  keypoints_variance: rad(pi/8)
+  keypoints_radius: 0.8
+  width_spatial_frequency: 0.05 
+  width_temporal_frequency: 0.35
+  width_amplitude: 0.05
+  angle_amplitude: 0.008
+  angle_frequency: 0.08
+  spline_densitiy: 60
+  static_walls: true

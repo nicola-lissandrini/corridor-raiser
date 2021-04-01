@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+	<model name="dynamic_corridor_physics">
+   		<pose>0 0 0 0 0 0</pose>
+   		<static>true</static>
+     	<plugin name="corridor_raiser_physics" filename="libcorridor_raiser_physics.so"/>
+     	<link name="corridor_1_link_physics">
+     		
+     		<collision name="corridor_1_collision_0_base">
+     			<geometry>
+     				<box><size>0 0 0</size></box>
+     			</geometry>
+     		</collision>
+     		<collision name="corridor_1_collision_1_base">
+     			<geometry>
+     				<box><size>0 0 0</size></box>
+     			</geometry>
+     		</collision>
+     	</link>
+	</model>
+</sdf>

@@ -1,0 +1,55 @@
+#include "corridor_raiser_plugin.h"
+
+using namespace gazebo;
+using namespace physics;
+using namespace gazebo::rendering;
+using namespace ignition::math;
+using namespace ros;
+using namespace std;
+
+CorridorRaiserPlugin::CorridorRaiserPlugin():
+	ModelPlugin ()
+{}
+
+
+
+void CorridorRaiserPlugin::Load (ModelPtr _model, sdf::ElementPtr _sdf)
+{
+	model = _model;
+	engine = model->GetWorld ()->Physics ();
+
+	nodeVis = transport::NodePtr (new transport::Node ());
+	nodeVis->Init (model->GetWorld ()->Name());
+	pubVis = nodeVis->Advertise<msgs::Visual> ("~/visual");
+
+	LinkPtr linkMio = model->GetChildLink ("corridor_1_link");
+
+	BoxShapePtr shape = boost::reinterpret_pointer_cast<BoxShape> (model->GetChildLink ("corridor_1_link")->GetCollision ("corridor_1_collision")->GetShape ());
+
+	shape->SetSize (Vector3d(2, 2, 2));
+	uint32_t visualId;
+
+	linkMio->VisualId ("corridor_1_link", visualId);
+
+	gzerr << "Che scena id " << model->GetWorld ()->
+	visualMsg.set_name ("corridor_1_link");
+	visualMsg.set_parent_name (model->GetWorld ()->SceneMsg ().name ());
+	//visualMsg.set_parent_id (model->GetWorld()->SceneMsg);
+	visualMsg.set_id (visualId);
+	visualMsg.set_delete_me (true);
+	
+
+	msgs::Set (visualMsg.mutable_pose (), Pose3d ());
+
+
+	updateConnection = event::Events::ConnectWorldUpdateBegin (
+				boost::bind(&CorridorRaiserPlugin::OnUpdate, this, _1));
+}
+
+void CorridorRaiserPlugin::OnUpdate (const common::UpdateInfo &_info)
+{
+	pubVis->Publish (visualMsg);
+}
+
+
+GZ_REGISTER_MODEL_PLUGIN(CorridorRaiserPlugin)
