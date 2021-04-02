@@ -1,6 +1,23 @@
 <?xml version="1.0"?>
 
 <launch>
+	<!-- Start gazebo -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="verbose" value="false" />
+		<arg name="paused" value="false" />
+	</include>
+
+	<!-- Spawn vehicle -->
+	<group ns="turtlebot">
+		<param name="vehicle_description"  command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_waffle.urdf.xacro" />
+
+		<node pkg="gazebo_ros" type="spawn_model" name="spawn_vehicle"
+			args="-urdf
+				  -x -2
+				  -y -2
+				  -model turtlebot3_waffle
+				  -param vehicle_description" />
+	</group>
 	<!-- Visual plugin -->
 	<param name="dynamic_corridor_visual_description" textfile="$(find corridor_raiser)/plugins/dynamic_corridor_visual.sdf" />
 

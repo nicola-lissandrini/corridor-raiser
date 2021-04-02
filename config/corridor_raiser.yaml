@@ -11,4 +11,7 @@ corridor_raiser:
   angle_amplitude: 0.008
   angle_frequency: 0.08
   spline_densitiy: 60
-  static_walls: true
+  static_walls: false
+  wall_topic_pub: /corridor_raiser/walls
+  corridor_topic_pub: /corridor_raiser/corridor
+  odom_topic_sub: /turtlebot/odom
